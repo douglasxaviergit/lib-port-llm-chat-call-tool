@@ -1,0 +1,9 @@
+# Rust
+/target/
+bootstrap.zip
+
+# Variáveis de ambiente locais
+.env
+
+# macOS
+.DS_Store
