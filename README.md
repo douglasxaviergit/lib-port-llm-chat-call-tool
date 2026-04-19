@@ -15,7 +15,7 @@ Trait assíncrona responsável por invocar o modelo e devolver as ferramentas qu
 - **`SystemPrompt`** — prompt de sistema (`content: String`).
 - **`MessageUser`** / **`MessageAssistant`** — mensagem do usuário ou do assistente (`content: String`).
 - **`ChatMessage`** — enum com variantes `User(MessageUser)` e `Assistant(MessageAssistant)`.
-- **`ToolDefinition`** — definição de ferramenta para o modelo (`name`, `description`, `parameters`).
+- **`ToolDefinition`** — definição de ferramenta para o modelo (`name`, `description`, `input_schema`).
 - **`ToolCall`** — chamada emitida pelo modelo (`id`, `name`, `args`).
 - **`LlmOutput`** — enum com variantes `ToolCalls(Vec<ToolCall>)` e `NoToolCall`.
 - **`ChatResponse`** — métricas e saída (`latency_ms`, `input_tokens`, `output_tokens`, `cost_usd`, `output`).

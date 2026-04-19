@@ -27,7 +27,7 @@ pub enum ChatMessage {
 pub struct ToolDefinition {
     pub name: String,
     pub description: String,
-    pub parameters: Value,
+    pub input_schema: Value,
 }
 
 #[derive(Debug, Clone)]
@@ -40,7 +40,7 @@ pub struct ToolCall {
 #[derive(Debug)]
 pub enum LlmOutput {
     ToolCalls(Vec<ToolCall>),
-    NoToolCall,               
+    NoToolCall,
 }
 
 #[derive(Debug)]
@@ -49,7 +49,7 @@ pub struct ChatResponse {
     pub input_tokens: u64,
     pub output_tokens: u64,
     pub cost_usd: f64,
-    pub output: LlmOutput
+    pub output: LlmOutput,
 }
 
 #[async_trait]
