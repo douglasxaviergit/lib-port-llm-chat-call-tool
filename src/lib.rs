@@ -35,6 +35,7 @@ pub struct ToolCall {
     pub id: String,
     pub name: String,
     pub args: Value,
+    pub missing_fields: Vec<String>,
 }
 
 #[derive(Debug)]
