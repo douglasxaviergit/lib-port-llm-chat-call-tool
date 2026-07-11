@@ -5,6 +5,8 @@ SPEC_DIR  ?= .spec
 
 # CLI de LLM usada pelo `make debt` (troque por cursor-agent se preferir)
 LLM ?= claude
+# Regras a auditar no `make debt`: all ou lista (ex.: RULES="coding.md security.md")
+RULES ?= all
 
 all: spec fmt lint check build test
 
@@ -18,14 +20,10 @@ spec:
 		git -C "$(SPEC_DIR)" pull --ff-only --quiet 2>/dev/null || true; \
 	fi
 
-## Audita o repositório contra as regras do lib-spec (LLM) e atualiza TECH_DEBT.md
+## Audita o repositório contra as regras do lib-spec (uma execução de LLM por regra) e atualiza TECH_DEBT.md
 debt: spec
-	@command -v $(LLM) >/dev/null 2>&1 || { echo "erro: CLI '$(LLM)' nao encontrada (instale o Claude Code ou rode make debt LLM=<cli>)"; exit 1; }
-	@test -f "$(SPEC_DIR)/.ai/prompts/auditor.md" || { echo "erro: $(SPEC_DIR)/.ai/prompts/auditor.md nao encontrado (lib-spec desatualizado? rode: rm -rf $(SPEC_DIR) && make spec)"; exit 1; }
-	@echo "auditando com $(LLM) (pode levar alguns minutos)..."
-	@{ echo "<!-- auditoria: $$(date +%F) | lib-spec @ $$(git -C $(SPEC_DIR) rev-parse --short HEAD 2>/dev/null || echo '?') | engine: $(LLM) -->"; \
-	   $(LLM) -p "$$(cat $(SPEC_DIR)/.ai/prompts/auditor.md)"; } > TECH_DEBT.md \
-	   && echo "TECH_DEBT.md atualizado"
+	@test -f "$(SPEC_DIR)/.ai/scripts/audit.sh" || { echo "erro: $(SPEC_DIR)/.ai/scripts/audit.sh nao encontrado (lib-spec desatualizado? rode: rm -rf $(SPEC_DIR) && make spec)"; exit 1; }
+	@SPEC_DIR="$(SPEC_DIR)" sh "$(SPEC_DIR)/.ai/scripts/audit.sh" "$(LLM)" "$(RULES)"
 
 ## Compila
 build:
