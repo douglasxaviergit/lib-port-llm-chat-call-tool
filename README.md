@@ -24,7 +24,9 @@ Trait assíncrona responsável por invocar o modelo e devolver as ferramentas qu
 
 | Nome | O que faz |
 |-------------|-----------|
-| `make all` | Equivale a `make fmt && make lint && make check && make build && make test` |
+| `make all` | Equivale a `make spec && make fmt && make lint && make check && make build && make test` |
+| `make spec` | Sincroniza as regras compartilhadas (lib-spec) em `.spec/` |
+| `make debt` | Audita o repo contra as regras (LLM) e atualiza `TECH_DEBT.md` |
 | `make fmt` | Aplica formatação padrão do Rust |
 | `make lint` | Verifica se todos os avisos foram tratados |
 | `make check` | Análise estática sem gerar binários |

@@ -7,3 +7,6 @@ bootstrap.zip
 
 # macOS
 .DS_Store
+# Regras compartilhadas sincronizadas pelo make spec
+.spec/
+.claude/settings.local.json

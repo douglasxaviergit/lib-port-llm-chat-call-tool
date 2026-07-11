@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./target/**)",
+      "Read(./Cargo.lock)",
+      "Read(**/.DS_Store)",
+      "Read(./.env)"
+    ]
+  }
+}
